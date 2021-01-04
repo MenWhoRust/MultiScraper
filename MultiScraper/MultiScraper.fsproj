@@ -9,4 +9,11 @@
         <Compile Include="Program.fs" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="FSharp.Collections.ParallelSeq" Version="1.1.4" />
+      <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+      <PackageReference Include="ScrapySharp" Version="3.0.0" />
+      <PackageReference Include="Sharprompt" Version="2.0.0" />
+    </ItemGroup>
+
 </Project>
