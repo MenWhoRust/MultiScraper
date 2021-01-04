@@ -9,18 +9,23 @@ module Main =
     open Sharprompt
 
 
+    let mutable numberOfRows = Console.CursorTop
 
-    let downloadImage (fileName: string, url: string, number: int) =
+    let downloadImage (fileName: string, url: string) =
         async {
+            let currentRow = Interlocked.Increment(&numberOfRows)
             use wc = new WebClient()
-
             wc.DownloadProgressChanged.Add(fun i ->
-                Console.SetCursorPosition(0, number)
-                Console.WriteLine($"{i.ProgressPercentage} {i.UserState}"))
+                    Console.SetCursorPosition(0, currentRow)
+                    Console.WriteLine($"{i.ProgressPercentage} {fileName}")
+                )
+            
 
             wc.DownloadFileCompleted.Add(fun _ ->
-                Console.SetCursorPosition(0, number)
-                Console.WriteLine())
+                Console.SetCursorPosition(0, currentRow)
+                Console.WriteLine()
+                Interlocked.Decrement(&numberOfRows)|> ignore
+                )
 
 
             do! wc.DownloadFileTaskAsync(Uri(url), $"./{fileName}")
@@ -41,9 +46,6 @@ module Main =
 
 
         figures
-        |> Seq.mapi (fun i x ->
-            let a, b = x
-            (a, b, i))
         |> Seq.map downloadImage
         |> fun i -> (i, 5)
         |> Async.Parallel
