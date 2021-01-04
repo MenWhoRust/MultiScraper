@@ -19,7 +19,7 @@ module Wallhaven =
     let figureNodes (webPage: WebPage) = webPage.Html.CssSelect("figure")
     
     let private getDownloadUrl (node: HtmlNode) =
-        printfn "Getting download link for node"
+//        printfn "Getting download link for node"
         let fileExtension = if isPng (node) then "png" else "jpg"
 
         let wallpaperId =
@@ -33,7 +33,7 @@ module Wallhaven =
         let downloadUrl =
             $"{wallpaper_base_url}{wallpaperId.[0..1]}/{fileName}"
 
-        printfn "Got download link for %s" fileName
+//        printfn "Got download link for %s" fileName
         (fileName, downloadUrl)
 
     let private getPaginationFromWebPage (webPage: WebPage) =
