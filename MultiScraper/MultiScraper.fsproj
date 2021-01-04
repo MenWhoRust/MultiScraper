@@ -6,8 +6,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Include="Wallhaven.fs" />
         <Compile Include="Program.fs" />
-        <Folder Include="Modules" />
     </ItemGroup>
 
     <ItemGroup>
